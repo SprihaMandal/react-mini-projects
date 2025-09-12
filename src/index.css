@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+body {
+  @apply flex justify-center items-center font-mono p-10
+}
+
+@layer base {
+  h1 {
+    @apply text-3xl font-bold
+  }
+}
