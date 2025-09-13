@@ -9,3 +9,9 @@ body {
     @apply text-3xl font-bold
   }
 }
+
+@layer component {
+  .app-button {
+    @apply rounded-xl px-4 py-2 mx-2 my-2 border-1 border-amber-600 shadow-amber-600 cursor-pointer shadow-2xs bg-amber-200
+  }
+}

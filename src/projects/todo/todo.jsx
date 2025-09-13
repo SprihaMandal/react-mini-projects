@@ -38,9 +38,18 @@ export const TodoApp = () => {
         //console.log will use stale state as updating is still scheduling
     }
 
+    const handleClearAll = () => {
+        setTodoArr([]);
+    }
+
+    const handleDeleteItem = (ele) => {
+        let updatedTodo = todoArr.filter((todo) => todo !== ele);
+        setTodoArr(updatedTodo);
+    }
+
     return (
         <div className="border-1 border-amber-300 p-12 rounded-3xl">
-            <section className="my-3">
+            <section className="my-3 text-center">
                 <div>
                     <h1>TODO APP</h1>
                     <h2>{dateTime}</h2>
@@ -56,15 +65,21 @@ export const TodoApp = () => {
                         className="w-60 mr-2 border-2 border-amber-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
 
                     />
-                    <button className="cursor-pointer" onClick={handleButtonClick}>Add</button>
+                    <button className="app-button" onClick={handleButtonClick}>Add</button>
                 </form>
             </section>
 
             <section className="mt-3">
-                {todoArr.map((ele, index) => <div className="flex" key={index}><span className="mr-6 w-50">{ele}</span> <MdDoneOutline className="mt-1 ml-4" />
-                    <MdDelete className="mt-1 ml-4" />
+                {todoArr.map((ele, index) => <div className="flex" key={index}><span className="mr-6 w-50">{ele}</span> <MdDoneOutline className="mt-1 ml-4 cursor-pointer" />
+                    <MdDelete className="mt-1 ml-4 cursor-pointer" onClick={() => handleDeleteItem(ele)} />
                 </div>)}
             </section>
+
+            <div className="text-center">
+                <button className="app-button" onClick={handleClearAll}>Clear All</button>
+            </div>
+
+
 
         </div>
     )
