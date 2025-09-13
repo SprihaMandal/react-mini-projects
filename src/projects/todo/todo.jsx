@@ -1,10 +1,11 @@
-import { use, useEffect, useState } from "react"
-import { MdDoneOutline, MdDelete } from "react-icons/md";
+import { useEffect, useState } from "react"
+import { TodoForm } from "./components/todoForm";
+import { TodoListItem } from "./components/todoListItem";
+import { getTodoLocalData, setTodoLocalData } from "./components/todoLocalStorage";
 
 
 export const TodoApp = () => {
-    const [todoText, setTodoText] = useState('');
-    const [todoArr, setTodoArr] = useState([]);
+    const [todoArr, setTodoArr] = useState(() => getTodoLocalData());
     const [dateTime, setDateTime] = useState('');
 
     useEffect(() => {
@@ -15,26 +16,14 @@ export const TodoApp = () => {
         return () => clearInterval(interval);
     }, []);
 
+    setTodoLocalData(todoArr);
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleButtonClick = (props) => {
+        const exists = todoArr.some((obj) => obj.content === props.content);
+        if (exists === true) return;
 
-    };
-
-
-    const handleTodoText = (e) => {
-        setTodoText(e.target.value);
-    }
-
-    const handleButtonClick = () => {
-        if (todoText === '') return;
-        if (todoArr.includes(todoText)) {
-            setTodoText('');
-            return;
-        }
-        setTodoArr((prevArr) => [...prevArr, todoText]);
-        setTodoText('');
+        setTodoArr((prevArr) => [...prevArr, props]);
         //console.log will use stale state as updating is still scheduling
     }
 
@@ -43,36 +32,27 @@ export const TodoApp = () => {
     }
 
     const handleDeleteItem = (ele) => {
-        let updatedTodo = todoArr.filter((todo) => todo !== ele);
+        let updatedTodo = todoArr.filter((todo) => todo.content !== ele.content);
         setTodoArr(updatedTodo);
     }
 
+    const handleCheckedEle = (obj) => {
+        let updatedArr = todoArr.map((todo) => (todo.content === obj.content) ? { ...todo, checked: !obj.checked } : todo);
+        setTodoArr(updatedArr);
+    }
+
     return (
-        <div className="border-1 border-amber-300 p-12 rounded-3xl">
+        <div className="border-1 border-amber-300 p-12 rounded-3xl shadow-amber-700 shadow-xl">
             <section className="my-3 text-center">
                 <div>
                     <h1>TODO APP</h1>
                     <h2>{dateTime}</h2>
                 </div>
             </section>
-            <section>
-                <form onSubmit={handleSubmit}>
-                    <input
-                        value={todoText}
-                        onChange={handleTodoText}
-                        type="text"
-                        placeholder=""
-                        className="w-60 mr-2 border-2 border-amber-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-amber-400"
-
-                    />
-                    <button className="app-button" onClick={handleButtonClick}>Add</button>
-                </form>
-            </section>
+            <TodoForm addTodo={handleButtonClick} />
 
             <section className="mt-3">
-                {todoArr.map((ele, index) => <div className="flex" key={index}><span className="mr-6 w-50">{ele}</span> <MdDoneOutline className="mt-1 ml-4 cursor-pointer" />
-                    <MdDelete className="mt-1 ml-4 cursor-pointer" onClick={() => handleDeleteItem(ele)} />
-                </div>)}
+                {todoArr.map((ele, index) => <TodoListItem key={index} todoItem={ele} deleteTodo={handleDeleteItem} checkedTodo={handleCheckedEle} />)}
             </section>
 
             <div className="text-center">
