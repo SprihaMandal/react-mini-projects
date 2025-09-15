@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+body {
+    @apply bg-neutral-300
+}
+
+@layer components {
+    .app-input {
+        @apply mb-3 w-full mr-2 border-2 border-indigo-700 rounded-lg p-2 focus:outline-none focus:ring-3 focus:ring-indigo-300
+    }
+
+    .app-div {
+        @apply border-1 border-indigo-300 p-12 rounded-3xl shadow-indigo-700 shadow-xl
+    }
+}
