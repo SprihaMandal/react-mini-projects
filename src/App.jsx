@@ -1,9 +1,9 @@
-import { CryptoCard } from "./projects/cryptoTracker/components/cryptoCard"
+import { CryptoScreen } from "./projects/cryptoTracker/components/cryptoScreen"
 import './index.css';
 export const App = () => {
   return (
     <>
-      <CryptoCard />
+      <CryptoScreen />
     </>
 
   )

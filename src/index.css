@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
+
 body {
-  @apply flex justify-center items-center font-mono p-10
+  font-family: 'Lato';
+  @apply flex justify-center items-center p-10
 }
 
 @layer base {
