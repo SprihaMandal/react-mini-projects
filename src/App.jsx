@@ -1,11 +1,15 @@
 import './index.css';
-import Dropdown from './projects/useRef/dropDown';
+import { ThemeProvider } from './contexts/themeContext';
+import { CustomScreen } from './projects/customScreen';
 
 export const App = () => {
+
+
   return (
-    <>
-      <Dropdown />
-    </>
+    <ThemeProvider>
+      <CustomScreen />
+
+    </ThemeProvider>
 
   )
 }

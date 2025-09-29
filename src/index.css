@@ -3,7 +3,7 @@
 
 body {
   font-family: 'Lato';
-  @apply flex justify-center items-center p-10
+  @apply flex justify-center items-center
 }
 
 @layer base {
@@ -15,5 +15,19 @@ body {
 @layer component {
   .app-button {
     @apply rounded-xl px-4 py-2 mx-2 my-2 border-1 border-amber-600 shadow-amber-600 cursor-pointer shadow-2xs bg-amber-200
+  }
+
+
+
+  .plain-button {
+    @apply rounded-xl px-8 py-4 mx-2 my-2 border-1 cursor-pointer
+  }
+
+  .dark-button {
+    @apply border-white shadow-white shadow-2xs
+  }
+
+  .light-button {
+    @apply border-black shadow-neutral-500 shadow-2xs
   }
 }
